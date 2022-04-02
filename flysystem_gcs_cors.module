@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains flysystem_gcs_cors.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function flysystem_gcs_cors_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the flysystem_gcs_cors module.
+    case 'help.page.flysystem_gcs_cors':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Allow directly uploading to Google Cloud Storage from the web browser') . '</p>';
+      return $output;
+
+    default:
+  }
+}

@@ -1,0 +1,3 @@
+administer gcs cors:
+  title: 'Administer GCS CORS'
+  description: 'Administer GCS CORS Upload'

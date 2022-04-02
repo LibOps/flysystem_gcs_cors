@@ -1,0 +1,13 @@
+{
+    "name": "drupal/flysystem_gcs_cors",
+    "description": "Extends the drupal/flysystem_gcs_cors module by allowing direct uploads to the GCS bucket.",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/flysystem_gcs_cors",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/flysystem_gcs_cors"
+    },
+    "license": "GPL-2.0+",
+    "require": {
+      "league/flysystem-google-cloud-storage": "^3.0"
+    }
+}
