@@ -7,7 +7,4 @@
         "issues": "https://www.drupal.org/project/issues/flysystem_gcs_cors"
     },
     "license": "GPL-2.0+",
-    "require": {
-      "league/flysystem-google-cloud-storage": "2.4.4"
-    }
 }
