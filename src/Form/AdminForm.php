@@ -82,10 +82,11 @@ class AdminForm extends ConfigFormBase {
     }
     else {
       $cors = [[
-          'method' => ["PUT"],
+          'method' => ["POST", "PUT"],
           'origin' => [$origin],
           'responseHeader' => [
             'Content-Type',
+            'Access-Control-Allow-Origin'
           ],
           'maxAgeSeconds' => 3600,
       ]];
