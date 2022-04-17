@@ -87,7 +87,7 @@ class Gcs extends AjaxResponse {
     $fields = $this->entityFieldManager->getFieldDefinitions($entity_type, $bundle);
 
     // make sure the account has access to edit or create the entity type
-    if ($entity_id) {
+    if ($entity_id !== "null") {
       $entity = $this->entityTypeManager->getStorage($entity_type)->load($entity_id);
       $has_access = $entity && $access_controller->access($entity, 'update');
     }
@@ -109,7 +109,7 @@ class Gcs extends AjaxResponse {
   private function getDirectory($file_directory_untokenized, $entity_type, $entity_id) {
     $token_service = \Drupal::token();
     $data = [];
-    if ($entity_id) {
+    if ($entity_id !== "null") {
       $entity = $this->entityTypeManager->getStorage($entity_type)->load($entity_id);
       if ($entity) {
         $data[$entity_type] = $entity;
