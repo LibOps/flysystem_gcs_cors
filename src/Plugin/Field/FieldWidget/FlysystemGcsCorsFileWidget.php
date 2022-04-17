@@ -16,7 +16,8 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *   id = "flysystem_gcs_cors_file_widget",
  *   label = @Translation("GCS Cors File Upload"),
  *   field_types = {
- *     "file"
+ *     "file",
+ *     "image"
  *   }
  * )
  */
