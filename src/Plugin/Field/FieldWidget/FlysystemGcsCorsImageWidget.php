@@ -4,24 +4,24 @@ namespace Drupal\flysystem_gcs_cors\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Bytes;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\file\Plugin\Field\FieldWidget\FileWidget;
+use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\flysystem_gcs_cors\Element\FlysystemGcsCorsFile;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
- * Plugin implementation of the 'flysystem_gcs_cors_file_widget' widget.
+ * Plugin implementation of the 'flysystem_gcs_cors_image_widget' widget.
  *
  * @FieldWidget(
- *   id = "flysystem_gcs_cors_file_widget",
- *   label = @Translation("GCS Cors File Upload"),
+ *   id = "flysystem_gcs_cors_image_widget",
+ *   label = @Translation("GCS Cors Image Upload"),
  *   field_types = {
- *     "file",
- *     "flysystem_gcs_cors_file"
+ *     "image",
+ *     "flysystem_gcs_cors_image"
  *   }
  * )
  */
-class FlysystemGcsCorsFileWidget extends FileWidget {
+class FlysystemGcsCorsImageWidget extends ImageWidget {
 
   use StringTranslationTrait;
 
@@ -35,6 +35,7 @@ class FlysystemGcsCorsFileWidget extends FileWidget {
     $element['#type'] = 'flysystem_gcs_cors_file';
     $element['#process'][] = $element_info['#process'][0];
     $element['#process'][] = $element['#process'][1];
+
     $element['#attributes'] = ['class' => ['gcs-cors-file']];
 
     return $element;

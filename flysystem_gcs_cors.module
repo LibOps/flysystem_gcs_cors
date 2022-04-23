@@ -22,3 +22,14 @@ function flysystem_gcs_cors_help($route_name, RouteMatchInterface $route_match) 
     default:
   }
 }
+
+/**
+ * Implements hook_field_info_alter().
+ */
+function flysystem_gcs_cors_field_info_alter(array &$info) {
+  // need to override the file and image fields to allow setting uploads larger than what PHP allows
+  // since we're avoiding the PHP server altogether and uploading directly to GCS do not need to be
+  // constrained by PHP's memory limits
+  $info['file']['class'] = '\Drupal\flysystem_gcs_cors\Plugin\Field\FieldType\FlysystemGcsCorsFile';
+  $info['image']['class'] = '\Drupal\flysystem_gcs_cors\Plugin\Field\FieldType\FlysystemGcsCorsImage';
+}
