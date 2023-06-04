@@ -58,5 +58,6 @@ jobs:
         set -eou pipefail
 
         docker exec drupal /bin/bash -c '../vendor/bin/drush si --db-url=sqlite://../../public/.ht.sqlite --yes'
+        docker exec -w /code drupal /bin/bash -c 'composer require drupal/flysystem_gcs'
         docker exec drupal /bin/bash -c '../vendor/bin/drush en flysystem_gcs_cors'
         docker exec drupal /bin/bash -c '../vendor/bin/drush status'
