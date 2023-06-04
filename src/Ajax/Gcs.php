@@ -3,21 +3,21 @@
 namespace Drupal\flysystem_gcs_cors\Ajax;
 
 use Drupal\Core\Ajax\AjaxResponse;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Site\Settings;
-use Drupal\Core\Entity\EntityAccessControlHandler;
 use Google\Cloud\Storage\StorageClient;
 use Drupal\file\Entity\File;
 
+/**
+ * AJAX responses for module.
+ */
 class Gcs extends AjaxResponse {
 
   /**
    * {@inheritdoc}
    */
-  public function __construct($data = null, $status = 200, $headers = []) {
+  public function __construct($data = NULL, $status = 200, $headers = []) {
     parent::__construct($data, $status, $headers);
 
     $this->mimeType = \Drupal::service('file.mime_type.guesser');
@@ -26,7 +26,9 @@ class Gcs extends AjaxResponse {
     $this->moduleHandler = \Drupal::service('module_handler');
   }
 
-
+  /**
+   * Generate a GCS signed URL to upload a file.
+   */
   public function getSignedUrl($entity_type, $bundle, $entity_id, $field, $delta, $file_name) {
     $fields = $this->entityFieldManager->getFieldDefinitions($entity_type, $bundle);
     $file_directory_untokenized = $fields[$field]->getSetting('file_directory');
@@ -47,6 +49,9 @@ class Gcs extends AjaxResponse {
     return new JsonResponse($response);
   }
 
+  /**
+   * After the file is uploaded as a GCS object, save the file entity in Drupal.
+   */
   public function saveFile($entity_type, $bundle, $entity_id, $field, $delta, $file_name, $file_size) {
     $fields = $this->entityFieldManager->getFieldDefinitions($entity_type, $bundle);
     $file_directory_untokenized = $fields[$field]->getSetting('file_directory');
@@ -80,13 +85,13 @@ class Gcs extends AjaxResponse {
   }
 
   /**
-   * Custom access function for AJAX routes
+   * Custom access function for AJAX routes.
    */
   public function access($entity_type, $bundle, $entity_id, $field, $delta, $file_name, $file_size = FALSE) {
-    $access_controller =  $this->entityTypeManager->getAccessControlHandler($entity_type);
+    $access_controller = $this->entityTypeManager->getAccessControlHandler($entity_type);
     $fields = $this->entityFieldManager->getFieldDefinitions($entity_type, $bundle);
 
-    // make sure the account has access to edit or create the entity type
+    // Make sure the account has access to edit or create the entity type.
     if ($entity_id !== "null") {
       $entity = $this->entityTypeManager->getStorage($entity_type)->load($entity_id);
       $has_access = $entity && $access_controller->access($entity, 'update');
@@ -95,7 +100,7 @@ class Gcs extends AjaxResponse {
       $has_access = $access_controller->createAccess($bundle);
     }
 
-    // make sure the file extension is allowed
+    // Make sure the file extension is allowed.
     $extension = substr($file_name, strrpos($file_name, '.') + 1);
     $extensions = $fields[$field]->getSetting('file_extensions');
     $extensions = explode(' ', $extensions);
@@ -106,6 +111,12 @@ class Gcs extends AjaxResponse {
       in_array($extension, $extensions));
   }
 
+  /**
+   * Helper function. Get the directory based on the entity ID.
+   *
+   * Contextualize the entity that is having a file uploaded
+   *   on behalf of this module with that entity's metadata.
+   */
   private function getDirectory($file_directory_untokenized, $entity_type, $entity_id) {
     $token_service = \Drupal::token();
     $data = [];
@@ -117,4 +128,5 @@ class Gcs extends AjaxResponse {
     }
     return \Drupal::token()->replace($file_directory_untokenized, $data);
   }
+
 }

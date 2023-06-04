@@ -2,7 +2,6 @@
 
 namespace Drupal\flysystem_gcs_cors\Plugin\Field\FieldWidget;
 
-use Drupal\Component\Utility\Bytes;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
 use Drupal\Core\Field\FieldItemListInterface;

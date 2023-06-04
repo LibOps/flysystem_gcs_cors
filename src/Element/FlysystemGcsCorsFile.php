@@ -5,7 +5,6 @@ namespace Drupal\flysystem_gcs_cors\Element;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Element\ManagedFile;
 
-
 /**
  * Provides an GCS Cors File Element.
  *
@@ -25,7 +24,7 @@ class FlysystemGcsCorsFile extends ManagedFile {
     $info['#attached'] = [
       'library' => [
         'flysystem_gcs_cors/upload',
-      ]
+      ],
     ];
 
     return $info;
@@ -52,4 +51,5 @@ class FlysystemGcsCorsFile extends ManagedFile {
 
     return $element;
   }
+
 }
