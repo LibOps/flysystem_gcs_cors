@@ -8,7 +8,7 @@ use Drupal\Core\Site\Settings;
 use Google\Cloud\Storage\StorageClient;
 
 /**
- * Class AdminForm.
+ * Admin settings form.
  */
 class AdminForm extends ConfigFormBase {
 
@@ -53,7 +53,7 @@ class AdminForm extends ConfigFormBase {
       '#description' => $this->t('Select which Flysystem GCS bucket to set CORS policy on.'),
       '#options' => $options,
       '#default_value' => $config->get('scheme'),
-      '#required' => TRUE
+      '#required' => TRUE,
     ];
     return parent::buildForm($form, $form_state);
   }
@@ -82,17 +82,18 @@ class AdminForm extends ConfigFormBase {
     }
     else {
       $cors = [[
-          'method' => ["POST", "PUT"],
-          'origin' => [$origin],
-          'responseHeader' => [
-            'Content-Type',
-            'Access-Control-Allow-Origin'
-          ],
-          'maxAgeSeconds' => 3600,
-      ]];
+        'method' => ["POST", "PUT"],
+        'origin' => [$origin],
+        'responseHeader' => [
+          'Content-Type',
+          'Access-Control-Allow-Origin',
+        ],
+        'maxAgeSeconds' => 3600,
+      ],
+      ];
     }
     $bucket->update([
-        'cors' => $cors
+      'cors' => $cors,
     ]);
   }
 

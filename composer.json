@@ -6,5 +6,5 @@
     "support": {
         "issues": "https://www.drupal.org/project/issues/flysystem_gcs_cors"
     },
-    "license": "GPL-2.0+",
+    "license": "GPL-2.0-or-later"
 }

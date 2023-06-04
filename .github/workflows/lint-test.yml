@@ -60,4 +60,3 @@ jobs:
         docker exec drupal /bin/bash -c '../vendor/bin/drush si --db-url=sqlite://../../public/.ht.sqlite --yes'
         docker exec drupal /bin/bash -c '../vendor/bin/drush en flysystem_gcs_cors'
         docker exec drupal /bin/bash -c '../vendor/bin/drush status'
-
