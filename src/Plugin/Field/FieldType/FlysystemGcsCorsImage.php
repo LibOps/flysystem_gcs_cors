@@ -50,15 +50,15 @@ class FlysystemGcsCorsImage extends ImageItem {
     $flysystem_settings = Settings::get('flysystem', []);
 
     // Cap the upload size according to the PHP limit.
-    $max_filesize = Bytes::toInt(Environment::getUploadMaxSize());
+    $max_filesize = Bytes::toNumber(Environment::getUploadMaxSize());
 
     // If this field is using GCS, up the max upload size.
     if (isset($flysystem_settings[$scheme]) && $flysystem_settings[$scheme]['driver'] == 'gcs') {
-      $max_filesize = Bytes::toInt('2 GB');
+      $max_filesize = Bytes::toNumber('2 GB');
     }
 
     if (!empty($settings['max_filesize'])) {
-      $max_filesize = min($max_filesize, Bytes::toInt($settings['max_filesize']));
+      $max_filesize = min($max_filesize, Bytes::toNumber($settings['max_filesize']));
     }
 
     // There is always a file size limit.
