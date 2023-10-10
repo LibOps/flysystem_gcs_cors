@@ -6,22 +6,23 @@
 
     attach: function (context, settings) {
       // Detach default Drupal file auto upload behavior from any gcs cors file input elements.
-      $(context).find('.gcs-cors-file input[type="file"]').removeOnce('auto-file-upload').off('.autoFileUpload');
-      $(context).find('input.gcs-cors-upload').removeOnce('auto-file-upload').off('.autoFileUpload');
+      const removedElements = once.remove('auto-file-upload', '.gcs-cors-file input[type="file"], input.gcs-cors-upload', context);
+      $(removedElements).each(function () {
+        $(this).off('.autoFileUpload')
+      });
 
       // Attach the custom gcs cors auto upload processing behavior.
-      $(context).find('.gcs-cors-file input[type="file"]').once('gcs-cors-auto-upload').on('change.gcsCorsAutoUpload', {
-        settings: settings.gcs_flysystem_cors,
-        baseUrl: settings.path.baseUrl
-      }, Drupal.gcsCors.triggerUploadButton);
-      $(context).find('input.gcs-cors-upload').once('gcs-cors-auto-upload').on('change.gcsCorsAutoUpload', {
+      $(once('gcs-cors-auto-upload', '.gcs-cors-file input[type="file"], input.gcs-cors-upload', context)).on('change.gcsCorsAutoUpload', {
         settings: settings.gcs_flysystem_cors,
         baseUrl: settings.path.baseUrl
       }, Drupal.gcsCors.triggerUploadButton);
     },
     detach: function (context, settings, trigger) {
       if (trigger === 'unload') {
-        $(context).find('.gcs-cors-file input[type="file"]').removeOnce('gcs-cors-auto-upload').off('.gcsCorsAutoUpload');
+        const removedElements = once.remove('gcs-cors-auto-upload', '.gcs-cors-file input[type="file"]', context);
+        $(removedElements).each(function () {
+          $(this).off('.gcsCorsAutoUpload');
+        });
       }
     }
   };
