@@ -56,7 +56,7 @@ class Gcs extends AjaxResponse {
     $fields = $this->entityFieldManager->getFieldDefinitions($entity_type, $bundle);
     $file_directory_untokenized = $fields[$field]->getSetting('file_directory');
 
-    $file_mime = $this->mimeType->guess($file_name);
+    $file_mime = $this->mimeType->guessMimeType($file_name);
     $values = [
       'uid' => \Drupal::currentUser()->id(),
       'status' => 0,
