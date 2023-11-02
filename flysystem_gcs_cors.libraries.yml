@@ -1,4 +1,7 @@
 upload:
+  css:
+    base:
+      css/upload.css: {}
   js:
     js/upload.js: {}
   dependencies:

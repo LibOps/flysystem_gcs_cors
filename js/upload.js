@@ -34,6 +34,7 @@
       var file_input = $('input#' + event.target.id);
       var form = file_input.closest('form');
       form.find(':input[type="submit"]').attr('disabled', 'disabled');
+      form.find('.loader').removeClass('js-hide');
 
       // Get the filelist and the number of files to be uploaded.
       var filelist = file_input[0].files;
@@ -65,7 +66,6 @@
       for (var delta = 0; delta < num_files; delta++) {
 
         var file_obj = filelist[delta];
-        console.log(file_obj)
         var ajax_uri = baseUrl + 'ajax/gcs/' + entity_type + '/' + bundle + '/' + entity_id + '/' + field_name_key + '/' + delta + '/' + encodeURIComponent(file_obj.name);
         $.get({
           url: ajax_uri,
@@ -179,6 +179,7 @@
 
                           // Re-enable all the submit buttons in the form.
                           form.find(':input[type="submit"]').removeAttr('disabled');
+                          form.find('.loader').addClass('js-hide');
                         },
 
                         error: function (xmlHttpRequest, status, errorThrown) {
